@@ -1,6 +1,6 @@
-# Soup README
+# soup-build README
 
-This is the README for your extension "Soup". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "soup-build". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 

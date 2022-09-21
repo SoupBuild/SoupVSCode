@@ -3,20 +3,91 @@
 	"name": "SML",
 	"patterns": [
 		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
+			"include": "#table-value"
 		}
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.sml",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
+		"array-value": {
+			"name": "meta.structure.array-value.json",
+			"patterns": [
+				{
+					"comment": "The SML array value",
+					"include": "#value"
+				},
+				{
+					"comment": "Optional comma",
+					"name": "keyword.operator.delimiter.comma.sml",
+					"match": ","
+				}
+			]
 		},
-		"strings": {
+		"array": {
+			"begin": "\\[",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.operator.array.begin.sml"
+				}
+			},
+			"end": "\\]",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.operator.array.end.sml"
+				}
+			},
+			"name": "meta.structure.array.json",
+			"patterns": [
+				{
+					"include": "#array-value"
+				}
+			]
+		},
+		"key": {
+			"name": "variable.other.key.sml",
+			"match": "[_[:alpha:]][_[:alnum:]]*"
+		},
+		"table-value": {
+			"name": "meta.structure.table-value.json",
+			"patterns": [
+				{
+					"comment": "The SML table key",
+					"include": "#key"
+				},
+				{
+					"name": "keyword.operator.separator.table.key-value.sml",
+					"match": ":"
+				},
+				{
+					"comment": "The SML table value",
+					"include": "#value"
+				},
+				{
+					"comment": "Optional comma",
+					"name": "keyword.operator.delimiter.comma.sml",
+					"match": ","
+				}
+			]
+		},
+		"table": {
+			"begin": "\\{",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.operator.table.begin.sml"
+				}
+			},
+			"end": "\\}",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.operator.table.end.sml"
+				}
+			},
+			"name": "meta.structure.table.json",
+			"patterns": [
+				{
+					"include": "#table-value"
+				}
+			]
+		},
+		"string": {
 			"name": "string.quoted.double.sml",
 			"begin": "\"",
 			"end": "\"",
@@ -26,6 +97,23 @@
 					"match": "\\\\."
 				}
 			]
+		},
+		"value": {
+			"patterns": [
+				{
+					"include": "#number"
+				},
+				{
+					"include": "#string"
+				},
+				{
+					"include": "#array"
+				},
+				{
+					"include": "#table"
+				}
+			]
+
 		}
 	},
 	"scopeName": "source.sml"

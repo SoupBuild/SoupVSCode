@@ -24,6 +24,10 @@
         "extensions": [
           ".sml"
         ],
+        "icon": {
+          "light": "./icons/sml.svg",
+          "dark": "./icons/sml.svg"
+        },
         "configuration": "./language-configuration.json"
       }
     ],

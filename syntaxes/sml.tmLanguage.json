@@ -7,6 +7,10 @@
 		}
 	],
 	"repository": {
+		"line-comment": {
+			"name": "comment.line.number-sign.sml",
+			"match": "((#).*)$"
+		},
 		"array-value": {
 			"name": "meta.structure.array-value.json",
 			"patterns": [
@@ -37,44 +41,84 @@
 			"name": "meta.structure.array.json",
 			"patterns": [
 				{
+					"comment": "Optional comment",
+					"include": "#line-comment"
+				},
+				{
 					"include": "#array-value"
 				}
 			]
 		},
-		"key": {
+		"key-literal": {
 			"name": "variable.other.key.sml",
-			"match": "[_[:alpha:]][_[:alnum:]]*"
+			"match": "[A-Za-z0-9]+"
+		},
+		"key-string-literal": {
+			"name": "variable.other.key.sml",
+			"begin": "(\")",
+			"end": "(\")",
+			"patterns": [
+				{
+					"name": "constant.character.escape.sml",
+					"match": "\\\\."
+				}
+			]
+		},
+		"key": {
+			"patterns": [
+				{
+					"include": "#key-literal"
+				},
+				{
+					"include": "#key-string-literal"
+				}
+			]
 		},
 		"table-value": {
 			"name": "meta.structure.table-value.json",
 			"patterns": [
 				{
+					"comment": "Optional comment",
+					"include": "#line-comment"
+				},
+				{
 					"comment": "The SML table key",
 					"include": "#key"
 				},
 				{
-					"name": "keyword.operator.separator.table.key-value.sml",
-					"match": ":"
-				},
-				{
-					"comment": "The SML table value",
-					"include": "#value"
-				},
-				{
-					"comment": "Optional comma",
-					"name": "keyword.operator.delimiter.comma.sml",
-					"match": ","
+					"comment": "Scope value to differentiate from keys. Ends with any delimiter type, but lookahead for end of table.",
+					"begin": "(:)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.operator.separator.table.key-value.sml"
+						}
+					},
+					"end": "(,)|(\n)|(?=\\})",
+					"endCaptures": {
+						"0": {
+							"name": "keyword.operator.delimiter.comma.sml"
+						}
+					},
+					"patterns": [
+						{
+							"comment": "Optional comment",
+							"include": "#line-comment"
+						},
+						{
+							"include": "#value"
+						}
+					]
 				}
 			]
 		},
 		"table": {
-			"begin": "\\{",
+			"begin": "(\\{)",
 			"beginCaptures": {
 				"0": {
 					"name": "keyword.operator.table.begin.sml"
 				}
 			},
-			"end": "\\}",
+			"end": "(\\})",
 			"endCaptures": {
 				"0": {
 					"name": "keyword.operator.table.end.sml"
@@ -87,10 +131,14 @@
 				}
 			]
 		},
-		"string": {
+		"number-literal": {
+			"name": "constant.numeric.sml",
+			"match": "[0-9]+"
+		},
+		"string-literal": {
 			"name": "string.quoted.double.sml",
-			"begin": "\"",
-			"end": "\"",
+			"begin": "(\")",
+			"end": "(\")",
 			"patterns": [
 				{
 					"name": "constant.character.escape.sml",
@@ -101,10 +149,10 @@
 		"value": {
 			"patterns": [
 				{
-					"include": "#number"
+					"include": "#number-literal"
 				},
 				{
-					"include": "#string"
+					"include": "#string-literal"
 				},
 				{
 					"include": "#array"

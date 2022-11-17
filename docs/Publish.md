@@ -5,6 +5,8 @@ npm install -g vsce
 
 1. Package the extension
 ```
-cd SoupVSC
+cd SoupVSCode
 vsce package
 ```
+
+1. Navigate to extensions, expand skittle menu at top, install from VSIX...

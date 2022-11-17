@@ -131,6 +131,10 @@
 				}
 			]
 		},
+		"boolean-literal": {
+			"name": "constant.language.boolean.sml",
+			"match": "(true|false)"
+		},
 		"number-literal": {
 			"name": "constant.numeric.sml",
 			"match": "[0-9]+"
@@ -148,6 +152,9 @@
 		},
 		"value": {
 			"patterns": [
+				{
+					"include": "#boolean-literal"
+				},
 				{
 					"include": "#number-literal"
 				},

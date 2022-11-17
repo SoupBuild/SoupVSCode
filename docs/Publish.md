@@ -10,3 +10,9 @@ vsce package
 ```
 
 1. Navigate to extensions, expand skittle menu at top, install from VSIX...
+
+1. Publish the extension after testing
+```
+cd SoupVSCode
+vsce publish
+```

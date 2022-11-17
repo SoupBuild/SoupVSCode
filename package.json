@@ -2,10 +2,11 @@
   "name": "soup-build",
   "displayName": "Soup Build",
   "description": "Soup Build Integrations",
+  "publisher": "SoupBuild",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SoupBuild/SoupVSCode.git"
-},
+    "url": "https://github.com/SoupBuild/SoupVSCode"
+  },
   "version": "0.1.0",
   "engines": {
     "vscode": "^1.71.0"

@@ -7,9 +7,29 @@
 		}
 	],
 	"repository": {
-		"line-comment": {
-			"name": "comment.line.number-sign.sml",
-			"match": "((#).*)$"
+		"array": {
+			"begin": "\\[",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.operator.array.begin.sml"
+				}
+			},
+			"end": "\\]",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.operator.array.end.sml"
+				}
+			},
+			"name": "meta.structure.array.sml",
+			"patterns": [
+				{
+					"comment": "Optional comment",
+					"include": "#line-comment"
+				},
+				{
+					"include": "#array-value"
+				}
+			]
 		},
 		"array-value": {
 			"name": "meta.structure.array-value.json",
@@ -25,44 +45,9 @@
 				}
 			]
 		},
-		"array": {
-			"begin": "\\[",
-			"beginCaptures": {
-				"0": {
-					"name": "keyword.operator.array.begin.sml"
-				}
-			},
-			"end": "\\]",
-			"endCaptures": {
-				"0": {
-					"name": "keyword.operator.array.end.sml"
-				}
-			},
-			"name": "meta.structure.array.json",
-			"patterns": [
-				{
-					"comment": "Optional comment",
-					"include": "#line-comment"
-				},
-				{
-					"include": "#array-value"
-				}
-			]
-		},
-		"key-literal": {
-			"name": "variable.other.key.sml",
-			"match": "[A-Za-z0-9]+"
-		},
-		"key-string-literal": {
-			"name": "variable.other.key.sml",
-			"begin": "(\")",
-			"end": "(\")",
-			"patterns": [
-				{
-					"name": "constant.character.escape.sml",
-					"match": "\\\\."
-				}
-			]
+		"boolean-literal": {
+			"name": "constant.language.boolean.sml",
+			"match": "(true|false)"
 		},
 		"key": {
 			"patterns": [
@@ -74,8 +59,89 @@
 				}
 			]
 		},
+		"key-literal": {
+			"name": "variable.other.key.sml",
+			"match": "[A-Za-z0-9]+"
+		},
+		"key-string-literal": {
+			"name": "variable.other.key.sml",
+			"begin": "(')",
+			"end": "(')",
+			"patterns": [
+				{
+					"name": "constant.character.escape.sml",
+					"match": "\\\\."
+				}
+			]
+		},
+		"line-comment": {
+			"name": "comment.line.number-sign.sml",
+			"match": "((#).*)$"
+		},
+		"number-literal": {
+			"name": "constant.numeric.sml",
+			"match": "[0-9]+(\\.[0-9]+)?"
+		},
+		"package-reference": {
+			"begin": "\\<",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.operator.package-reference.begin.sml"
+				}
+			},
+			"end": "\\>",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.operator.package-reference.end.sml"
+				}
+			},
+			"name": "meta.structure.package-reference.sml",
+			"patterns": [
+				{
+					"match": "(?:([A-Za-z0-9]+)\\|)?([A-Za-z0-9+#]+)@([0-9]+(?:\\.[0-9]+)?)",
+					"captures":
+					{
+						"1": { "name": "entity.name.type.user-name.sml" },
+						"2": { "name": "entity.name.type.package-name.sml" },
+						"3": { "name": "keyword.control.version-reference.sml" }
+					},
+					"name": "meta.structure.package-reference.sml"
+				}
+			]
+		},
+		"string-literal": {
+			"name": "string.quoted.single.sml",
+			"begin": "(')",
+			"end": "(')",
+			"patterns": [
+				{
+					"name": "constant.character.escape.sml",
+					"match": "\\\\."
+				}
+			]
+		},
+		"table": {
+			"begin": "(\\{)",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.operator.table.begin.sml"
+				}
+			},
+			"end": "(\\})",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.operator.table.end.sml"
+				}
+			},
+			"name": "meta.structure.table.sml",
+			"patterns": [
+				{
+					"include": "#table-value"
+				}
+			]
+		},
 		"table-value": {
-			"name": "meta.structure.table-value.json",
+			"name": "meta.structure.table-value.sml",
 			"patterns": [
 				{
 					"comment": "Optional comment",
@@ -111,49 +177,17 @@
 				}
 			]
 		},
-		"table": {
-			"begin": "(\\{)",
-			"beginCaptures": {
-				"0": {
-					"name": "keyword.operator.table.begin.sml"
-				}
-			},
-			"end": "(\\})",
-			"endCaptures": {
-				"0": {
-					"name": "keyword.operator.table.end.sml"
-				}
-			},
-			"name": "meta.structure.table.json",
-			"patterns": [
-				{
-					"include": "#table-value"
-				}
-			]
-		},
-		"boolean-literal": {
-			"name": "constant.language.boolean.sml",
-			"match": "(true|false)"
-		},
-		"number-literal": {
-			"name": "constant.numeric.sml",
-			"match": "[0-9]+"
-		},
-		"string-literal": {
-			"name": "string.quoted.double.sml",
-			"begin": "(\")",
-			"end": "(\")",
-			"patterns": [
-				{
-					"name": "constant.character.escape.sml",
-					"match": "\\\\."
-				}
-			]
+		"version-literal": {
+			"name": "keyword.control.version.sml",
+			"match": "[0-9]+\\.[0-9]+\\.[0-9]+"
 		},
 		"value": {
 			"patterns": [
 				{
 					"include": "#boolean-literal"
+				},
+				{
+					"include": "#version-literal"
 				},
 				{
 					"include": "#number-literal"
@@ -166,9 +200,11 @@
 				},
 				{
 					"include": "#table"
+				},
+				{
+					"include": "#package-reference"
 				}
 			]
-
 		}
 	},
 	"scopeName": "source.sml"

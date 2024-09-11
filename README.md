@@ -18,6 +18,10 @@ The language definition is currently incomplete and may have some issues with co
 
 Users appreciate release notes as you update your extension.
 
+### 0.1.1
+
+Update to use new string literals.
+
 ### 0.1.0
 
 Initial release with SML language grammar.

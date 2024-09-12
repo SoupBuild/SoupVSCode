@@ -18,6 +18,10 @@ The language definition is currently incomplete and may have some issues with co
 
 Users appreciate release notes as you update your extension.
 
+### 0.2.2
+
+New Language in package reference syntax
+
 ### 0.2.1
 
 Fix bugs and tags
